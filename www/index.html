@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Exchanger</title>
+        <link rel="stylesheet" type="text/css" href="easydropdown-master/themes/easydropdown.css"/>
+        <link rel="stylesheet" type="text/css" href="style/main.css">
+	    <link rel="stylesheet" href="material/material.min.css">
+	    <script src="material/material.min.js"></script>
+	    <script src="script/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+
+		<div class="mdl-layout mdl-js-layout">
+			<header class="mdl-layout__header">
+				<div class="mdl-layout-icon"></div>
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout__title">Exchanger</span>
+					<div class="mdl-layout-spacer"></div>
+				</div>
+			</header>
+			<main class="mdl-layout__content main" style="justify-content: center;">
+				<div class="content">
+					<select name="" id="" class="dropdown select-from">
+						<option>AUD</option>
+						<option>AZN</option>
+						<option>GBP</option>
+						<option>AMD</option>
+						<option>BYN</option>
+						<option>BGN</option>
+						<option>BRL</option>
+						<option>HUF</option>
+						<option>HKD</option>
+						<option>DKK</option>
+						<option>USD</option>
+						<option>EUR</option>
+						<option>RUB</option>
+						<option>INR</option>
+						<option>KZT</option>
+						<option>CAD</option>
+						<option>KGS</option>
+						<option>CNY</option>
+						<option>MDL</option>
+						<option>NOK</option>
+						<option>PLN</option>
+						<option>RON</option>
+						<option>XDR</option>
+						<option>SGD</option>
+						<option>TJS</option>
+						<option>TRY</option>
+						<option>TMT</option>
+						<option>UZS</option>
+						<option>UAH</option>
+						<option>CZK</option>
+						<option>SEK</option>
+						<option>CHF</option>
+						<option>ZAR</option>
+						<option>KRW</option>
+						<option>JPY</option>
+					</select>
+					<form action="#">
+					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					    <input class="mdl-textfield__input input-pln" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2">
+					    <label class="mdl-textfield__label" for="input2"></label>
+					    <span class="mdl-textfield__error">Input is not a number!</span>
+					  </div>
+					</form>
+					<select name="" id="" class="dropdown select-to">
+						<option>AUD</option>
+						<option>AZN</option>
+						<option>GBP</option>
+						<option>AMD</option>
+						<option>BYN</option>
+						<option>BGN</option>
+						<option>BRL</option>
+						<option>HUF</option>
+						<option>HKD</option>
+						<option>DKK</option>
+						<option>USD</option>
+						<option>EUR</option>
+						<option>RUB</option>
+						<option>INR</option>
+						<option>KZT</option>
+						<option>CAD</option>
+						<option>KGS</option>
+						<option>CNY</option>
+						<option>MDL</option>
+						<option>NOK</option>
+						<option>PLN</option>
+						<option>RON</option>
+						<option>XDR</option>
+						<option>SGD</option>
+						<option>TJS</option>
+						<option>TRY</option>
+						<option>TMT</option>
+						<option>UZS</option>
+						<option>UAH</option>
+						<option>CZK</option>
+						<option>SEK</option>
+						<option>CHF</option>
+						<option>ZAR</option>
+						<option>KRW</option>
+						<option>JPY</option>
+					</select>
+					<form action="#">
+					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					    <input class="mdl-textfield__input input-rub" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
+					    <label class="mdl-textfield__label" for="input1"></label>
+					    <span class="mdl-textfield__error">Input is not a number!</span>
+					  </div>
+					</form>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit">
+					  Exchange
+					</button>
+				</div>	
+
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
+			</main>
+		</div>
+		<script src="easydropdown-master/jquery.easydropdown.min.js" type="text/javascript"></script>
+		<script src="script/main.js"></script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>

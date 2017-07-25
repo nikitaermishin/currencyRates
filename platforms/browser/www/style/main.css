@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../material/fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(../material/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+    url(../material/fonts/MaterialIcons-Regular.woff) format('woff'),
+    url(../material/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+ /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+#add-button {
+  position: fixed;
+  display: block;
+  right: 0;
+  bottom: 0;
+  margin-right: 40px;
+  margin-bottom: 40px;
+  z-index: 900;
+}
+
+.mdl-layout__tab-panel {
+  padding: 8px;
+  padding-top: 24px;
+}
+
+.task {
+  min-height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  padding: 0 20px !important;
+  margin-bottom: 12px !important;
+}
+
+#task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task__name {
+  /*line-height: 30px;*/
+  margin: 12px 0;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.task__label {
+  width: auto !important;
+  align-self: center;
+}
+
+.page-addMenu {
+  display: none;
+  padding: 24px 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(100% - 64px);
+  width: 100%;
+  position: absolute;
+}
+
+#add-task-button {
+  margin-bottom: 0;
+}
+
+.task__titleWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.add-task-section {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center;
+  align-items: center;
+  padding: 20px !important;
+}
+
+.add-task-part {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
