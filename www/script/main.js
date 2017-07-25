@@ -16,7 +16,7 @@ $(document).ready(function() {
 	 }
 	}
 
-	function ajax() {
+	/*function ajax() {
 		var req = new XMLHttpRequest();
 	    req.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
 		req.send();
@@ -33,15 +33,19 @@ $(document).ready(function() {
 			for (var key in data.Valute) {
 				log += '<option>' + key + '</option>\n';
 			}
-			console.log(log);*/
+			console.log(log);
 		}
-	}
+	}*/
 
 	while (!checkConnection) {
 		console.log('no WIFI');
 	}
 
-	ajax();
+	$.getJSON("https://www.cbr-xml-daily.ru/daily_json.js", function(result){
+      $.each(result, function(i, field){
+        data = field;
+     });
+    });
 
 
 
@@ -52,7 +56,7 @@ $(document).ready(function() {
 	$('.submit').click(function() {
 		var from = selectFrom.val();
 		var to = selectTo.val();
-		var coef = data.Valute[from].Value / data.Valute[to].Value;
+		var coef = data[from].Value / data[to].Value;
 		var rubVal = parseFloat(rubInput.val());
 		var plnVal = parseFloat(plnInput.val());
 		if (plnVal) {
