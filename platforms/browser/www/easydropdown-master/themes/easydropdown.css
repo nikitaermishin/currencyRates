@@ -193,7 +193,7 @@
 /* .focus class is also added on hover */
 
 .dropdown li.focus{
-	background: #d24a67;
+	background: #9b59b6;
 	position: relative;
 	z-index: 3;
 	color: #fff;

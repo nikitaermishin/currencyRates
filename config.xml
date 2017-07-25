@@ -8,5 +8,5 @@
         PhoneGap Team
     </author>
     <content src="index.html" />
-    <access origin="https://www.cbr-xml-daily.ru" />
+    <access origin="https://www.cbr-xml-daily.ru/daily_json.js" />
 </widget>
