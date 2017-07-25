@@ -10,3 +10,5 @@
     <content src="index.html" />
     <access origin="https://www.cbr-xml-daily.ru/daily_json.js" />
 </widget>
+
+<plugin name="cordova-plugin-whitelist" source="npm" />
