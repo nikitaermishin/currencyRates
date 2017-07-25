@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	function ajax() {
 		var req = new XMLHttpRequest();
-	    req.open('GET', 'http://www.cbr-xml-daily.ru/daily_json.js', false);
+	    req.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
 		req.send();
 		if (req.status !== 200) {
 			console.log('Error');
