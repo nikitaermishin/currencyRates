@@ -8,26 +8,47 @@ $(document).ready(function() {
 	var main = document.querySelector('.main');
 	var data;
 
-	var req = new XMLHttpRequest();
-    req.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
-	req.send();
-	if (req.status !== 200) {
-		console.log('Error');
-	} else {
-		data = JSON.parse(req.responseText);
-		data.Valute.RUB = {
-	Value: 1
-	};
-    spinner.style.display = 'none';
+	function checkConnection () {
+	 if (navigator.connection.type === "WiFi" ) {
+	      return true;
+	 } else {
+	     return false;
+	 }
+	}
+
+	function ajax() {
+		var req = new XMLHttpRequest();
+	    req.open('GET', 'http://www.cbr-xml-daily.ru/daily_json.js', false);
+		req.send();
+		if (req.status !== 200) {
+			console.log('Error');
+		} else {
+			data = JSON.parse(req.responseText);
+			data.Valute.RUB = {
+				Value: 1
+			};
+	    
+
+			/*var log = '';
+			for (var key in data.Valute) {
+				log += '<option>' + key + '</option>\n';
+			}
+			console.log(log);*/
+		}
+	}
+
+	while (!checkConnection) {
+		console.log('no WIFI');
+	}
+
+	ajax();
+
+
+
+	spinner.style.display = 'none';
 	main.style.justifyContent = 'flex-start';
 	content.style.display = 'block';
 
-		/*var log = '';
-		for (var key in data.Valute) {
-			log += '<option>' + key + '</option>\n';
-		}
-		console.log(log);*/
-	}
 	$('.submit').click(function() {
 		var from = selectFrom.val();
 		var to = selectTo.val();
