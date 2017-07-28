@@ -12,9 +12,8 @@
     </head>
     <body>
 
-		<div class="mdl-layout mdl-js-layout">
+		<div class="mdl-layout mdl-js-layout mdl-la mdl-layout--fixed-header">
 			<header class="mdl-layout__header">
-				<div class="mdl-layout-icon"></div>
 				<div class="mdl-layout__header-row">
 					<span class="mdl-layout__title">Exchanger</span>
 					<div class="mdl-layout-spacer"></div>
@@ -59,7 +58,7 @@
 						<option>KRW</option>
 						<option>JPY</option>
 					</select>
-					<form action="#">
+					<form action="#" class="money-input">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					    <input class="mdl-textfield__input input-pln" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2">
 					    <label class="mdl-textfield__label" for="input2"></label>
@@ -103,9 +102,9 @@
 						<option>KRW</option>
 						<option>JPY</option>
 					</select>
-					<form action="#">
+					<form action="#" class="money-input">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input input-rub" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
+					    <input class="mdl-textfield__input input-rub" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1" readonly="">
 					    <label class="mdl-textfield__label" for="input1"></label>
 					    <span class="mdl-textfield__error">Input is not a number!</span>
 					  </div>
