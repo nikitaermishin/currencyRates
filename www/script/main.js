@@ -8,14 +8,6 @@ $(document).ready(function() {
 	var main = document.querySelector('.main');
 	var data;
 
-	function checkConnection () {
-	 if (navigator.connection.type === "WiFi" ) {
-	      return true;
-	 } else {
-	     return false;
-	 }
-	}
-
 	/*function ajax() {
 		var req = new XMLHttpRequest();
 	    req.open('GET', 'https://www.cbr-xml-daily.ru/daily_json.js', false);
@@ -37,7 +29,7 @@ $(document).ready(function() {
 		}
 	}*/
 
-	while (!checkConnection) {
+	/*while (!checkConnection) {
 		console.log('no WIFI');
 	}
 
@@ -45,13 +37,50 @@ $(document).ready(function() {
       $.each(result, function(i, field){
         data = field;
      });
+    });*/
+
+    var promise = new Promise(function(resolve, reject) {
+    	var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+
+    	var req = new XMLHttpRequest();
+    	req.open('GET', url);
+
+    	req.onload = function() {
+    		if (req.status === 200) {
+    			resolve(req.response);
+    		} else {
+    			reject(Error('Error, status: ' + req.statusText));
+    		}
+    	}
+
+    	req.onerror = function() {
+    		reject(Error('Error, problem with Network:'));
+    	}
+
+    	req.send();
+    });
+
+    promise.then(function(json) {
+    	return JSON.parse(json);
+    }).then(function(obj) {
+    	data = obj.Valute;
+    	data.RUB = {
+    		Value: 1
+    	}
+    	console.log(data);
+    }).catch(function(err) {
+    	console.log(Error(err));
+    }).then(function() {
+    	spinner.style.display = 'none';
+		main.style.justifyContent = 'flex-start';
+		content.style.display = 'block';
     });
 
 
-
+/*
 	spinner.style.display = 'none';
 	main.style.justifyContent = 'flex-start';
-	content.style.display = 'block';
+	content.style.display = 'block';*/
 
 	$('.submit').click(function() {
 		var from = selectFrom.val();
