@@ -19,7 +19,7 @@
 					<div class="mdl-layout-spacer"></div>
 				</div>
 			</header>
-			<main class="mdl-layout__content main" style="justify-content: center;">
+			<main class="mdl-layout__content main">
 				<div class="content">
 					<select name="" id="" class="dropdown select-from">
 						<option>AUD</option>
@@ -60,7 +60,7 @@
 					</select>
 					<form action="#" class="money-input">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input input-pln" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2">
+					    <input class="mdl-textfield__input input-val1" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2">
 					    <label class="mdl-textfield__label" for="input2"></label>
 					    <span class="mdl-textfield__error">Input is not a number!</span>
 					  </div>
@@ -104,7 +104,7 @@
 					</select>
 					<form action="#" class="money-input">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input input-rub" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1" readonly="">
+					    <input class="mdl-textfield__input input-val2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1" readonly="">
 					    <label class="mdl-textfield__label" for="input1"></label>
 					    <span class="mdl-textfield__error">Input is not a number!</span>
 					  </div>
@@ -115,6 +115,11 @@
 				</div>	
 
 				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
+
+				<div class="error">
+					<h2>Sorry, but occured unexpected error. Please, check your wifi connection and restart application.</h2>
+				</div>
+				
 			</main>
 		</div>
 		<script src="easydropdown-master/jquery.easydropdown.min.js" type="text/javascript"></script>
