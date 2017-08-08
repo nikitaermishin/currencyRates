@@ -1,17 +1,22 @@
 "use strict";
-var val1 = document.querySelector('.input-val1'),
-	val2 = document.querySelector('.input-val2'),
+
+//document.addEventListener("deviceready", onDeviceReady, false);
+
+var input1 = document.querySelector('.input-val1'),
+	input2 = document.querySelector('.input-val2'),
 	selectFrom = document.querySelector('.select-from'),
 	selectTo = document.querySelector('.select-to'),
 	content = document.querySelector('.content'),
 	spinner = document.querySelector('.spinner'),
 	main = document.querySelector('.main'),
 	error = document.querySelector('.error'),
-	data = {},
-	connect = false;
+	submit = document.querySelector('.submit');
 
-work();
+submit.onclick = clickHandler;
 
+function onDeviceReady() {
+	work();
+}
 
 function requestFunc() {
 	return new Promise(function(resolve, reject) {
@@ -29,7 +34,7 @@ function requestFunc() {
 		}
 
 		req.onerror = function() {
-			reject(Error('Error, problem with Network:'));
+			reject('Error, problem with Network');
 		}
 
 		req.send();
@@ -37,19 +42,20 @@ function requestFunc() {
 };
 
 async function getValutes() {
-	let promise = await requestFunc();
-	let obj = JSON.parse(promise);
-	data = obj.Valute;
-	data.RUB = {
-		Value: 1
+	try {
+		var obj;
+		let promise = await requestFunc();
+		obj = JSON.parse(promise);
+		obj.Valute.RUB = {
+			Value: 1
+		}
+		console.log(obj);
+		window.data = obj;
+		main.classList.add('active');
+		content.classList.add('active');
+	} catch (e) {
+		showNetErr(e);
 	}
-	console.log(data);
-	main.classList.add('active');
-	content.classList.add('active');
-}
-
-function onDeviceReady() {
-	checkConnection() ? getValutes() : showNetErr('Internet connection problem');
 }
 
 function checkConnection() {
@@ -85,8 +91,42 @@ function work() {
 	try {
 		checkConnection();
 		getValutes();
+		// window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 	} catch (e) {
 		showNetErr(e);
 	}
 	spinner.classList.add('off');
 }
+
+function gotFS(fileSystem) {
+	fileSystem.root.getFile("cache.json", {create: true, exclusive: false}, gotFileEntry, fail);
+}
+
+function gotFileEntry(fileEntry) {
+	fileEntry.createWriter(gotFileWriter, fail);
+}
+
+function gotFileWriter(writer) {
+	writer.onwriteend = function(evt) {
+		console.log('Data cashed');
+	};
+	writer.write(JSON.stringify(data));
+}
+
+function fail(err) {
+	throw new Error(err);
+}
+
+function clickHandler() {
+	var from = selectFrom.value;
+	var to = selectTo.value;
+	var coef = data.Valute[from].Value / data.Valute[to].Value;
+	var val1 = parseFloat(input1.value);
+	var val2 = parseFloat(input2.value);
+	if (val1) {
+		input2.parentElement.classList.add('is-dirty');
+		input2.value = val1 * coef;
+	}
+}
+
+onDeviceReady();
