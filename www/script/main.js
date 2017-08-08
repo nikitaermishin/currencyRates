@@ -1,5 +1,4 @@
 "use strict";
-// setup variables
 var val1 = document.querySelector('.input-val1'),
 	val2 = document.querySelector('.input-val2'),
 	selectFrom = document.querySelector('.select-from'),
@@ -11,11 +10,8 @@ var val1 = document.querySelector('.input-val1'),
 	data = {},
 	connect = false;
 
-// event listener
+work();
 
-document.addEventListener('deviceready', onDeviceReady, false);
-
-// functions
 
 function requestFunc() {
 	return new Promise(function(resolve, reject) {
@@ -41,22 +37,15 @@ function requestFunc() {
 };
 
 async function getValutes() {
-	try {
-		let promise = await requestFunc();
-		let obj = JSON.parse(promise);
-		data = obj.Valute;
-		data.RUB = {
-			Value: 1
-		}
-		console.log(data);
-		main.classList.add('active');
-		content.classList.add('active');
-	} catch (e) {
-		showNetErr(e);
+	let promise = await requestFunc();
+	let obj = JSON.parse(promise);
+	data = obj.Valute;
+	data.RUB = {
+		Value: 1
 	}
-	spinner.classList.add('off'); //.display = 'none';
-	// main.classList.add('active'); //.justifyContent = 'flex-start';
-	// content.classList.add('active'); //.display = 'block';
+	console.log(data);
+	main.classList.add('active');
+	content.classList.add('active');
 }
 
 function onDeviceReady() {
@@ -64,11 +53,40 @@ function onDeviceReady() {
 }
 
 function checkConnection() {
-	var networkState = navigator.network.connection.type;
-	return networkState !== Connection.NONE;
+	if (!window.navigator.onLine) throw new Error('No internet connection');
 }
 
 function showNetErr(err) {
 	console.error(err);
-	error.classList.add('active');
+	swal({
+	  title: 'Oops...',
+	  html: 'Problem with your internet connection!<br>Sorry, our app need internet.',
+	  type: 'error',
+	  showCloseButton: true,
+	  showCancelButton: true,
+	  allowOutsideClick: false,
+	  confirmButtonText:
+	    'Retry',
+	  cancelButtonText:
+	    '<span>Exit<span>'
+	}).then(function () {
+		work();
+	}, function (dismiss) {
+	  // dismiss can be 'cancel', 'overlay',
+	  // 'close', and 'timer'
+	  if (dismiss === 'cancel') {
+	  	navigator.app.exitApp();
+	  }
+	});
+}
+
+function work() {
+	spinner.classList.remove('off');
+	try {
+		checkConnection();
+		getValutes();
+	} catch (e) {
+		showNetErr(e);
+	}
+	spinner.classList.add('off');
 }

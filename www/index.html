@@ -4,11 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <title>Exchanger</title>
-        <link rel="stylesheet" type="text/css" href="easydropdown-master/themes/easydropdown.css"/>
-        <link rel="stylesheet" type="text/css" href="style/main.css">
+		<link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
+        <link rel="stylesheet" type="text/css" href="style/main.min.css">
 	    <link rel="stylesheet" href="material/material.min.css">
 	    <script src="material/material.min.js"></script>
-	    <script src="script/jquery-3.2.1.min.js"></script>
     </head>
     <body>
 
@@ -21,7 +20,7 @@
 			</header>
 			<main class="mdl-layout__content main">
 				<div class="content">
-					<select name="" id="" class="dropdown select-from">
+					<select name="" id="" class="select-from">
 						<option>AUD</option>
 						<option>AZN</option>
 						<option>GBP</option>
@@ -65,7 +64,7 @@
 					    <span class="mdl-textfield__error">Input is not a number!</span>
 					  </div>
 					</form>
-					<select name="" id="" class="dropdown select-to">
+					<select name="" id="" class="select-to">
 						<option>AUD</option>
 						<option>AZN</option>
 						<option>GBP</option>
@@ -115,14 +114,9 @@
 				</div>	
 
 				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
-
-				<div class="error">
-					<h2>Sorry, but occured unexpected error. Please, check your wifi connection and restart application.</h2>
-				</div>
-				
 			</main>
 		</div>
-		<script src="easydropdown-master/jquery.easydropdown.min.js" type="text/javascript"></script>
+		<script src="sweetalert2/sweetalert2.min.js"></script>	
 		<script src="script/main.js"></script>
 
         <script type="text/javascript" src="cordova.js"></script>

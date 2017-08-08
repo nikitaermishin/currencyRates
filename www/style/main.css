@@ -85,13 +85,3 @@
 .content.active {
   display: block;
 }
-
-.error {
-  display: none;
-  padding: 20px;
-  text-align: justify;
-}
-
-.error.active {
-  display: block;
-}
