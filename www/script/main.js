@@ -12,6 +12,9 @@ var input1 = document.querySelector('.input-val1'),
 	error = document.querySelector('.error'),
 	submit = document.querySelector('.submit');
 
+var choice1 = new Choices('.select-from');
+var choice2 = new Choices('.select-to');
+
 submit.onclick = clickHandler;
 
 function onDeviceReady() {
