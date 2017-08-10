@@ -1,9 +1,9 @@
 "use strict";
 
-//document.addEventListener("deviceready", onDeviceReady, false);
-
-var input1 = document.querySelector('.input-val1'),
-	input2 = document.querySelector('.input-val2'),
+var input1 = document.querySelector('#input1'),
+	input2 = document.querySelector('#input2'),
+	input1Placeholder = document.querySelector('#input1-name'),
+	input2Placeholder = document.querySelector('#input2-name'),
 	selectFrom = document.querySelector('.select-from'),
 	selectTo = document.querySelector('.select-to'),
 	content = document.querySelector('.content'),
@@ -12,10 +12,17 @@ var input1 = document.querySelector('.input-val1'),
 	error = document.querySelector('.error'),
 	submit = document.querySelector('.submit');
 
-var choice1 = new Choices('.select-from');
-var choice2 = new Choices('.select-to');
+changePlaceholder1();
+selectFrom.onchange = changePlaceholder1;
+changePlaceholder2();
+selectTo.onchange = changePlaceholder2;
+
+var choice1 = new Choices('.select-from', {searchEnabled: false});
+var choice2 = new Choices('.select-to', {searchEnabled: false});
 
 submit.onclick = clickHandler;
+
+document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 	work();
@@ -132,4 +139,10 @@ function clickHandler() {
 	}
 }
 
-onDeviceReady();
+function changePlaceholder1() {
+	input1Placeholder.innerHTML = selectFrom.value;
+}
+
+function changePlaceholder2() {
+	input2Placeholder.innerHTML = selectTo.value;
+}

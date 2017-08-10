@@ -42,6 +42,7 @@
 .content {
   display: none;
   margin: 25px 10px 0 10px;
+  width: 80%;
 }
 
 .main {
@@ -86,4 +87,24 @@
 
 .choices__inner {
   min-height: 0;
+}
+
+#input2+.mdl-textfield__label:after {
+  height: 0 !important;
+}
+
+.choices__list--dropdown {
+  width: calc(100% + 15px);
+}
+
+@media (orientation:landscape) {
+  .block-to, .block-from {
+    width: 48%;
+    display: inline-block;
+  }
+
+  .exchange-blocks {
+    display: flex;
+    justify-content: space-between;
+  }
 }

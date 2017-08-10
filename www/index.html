@@ -25,98 +25,104 @@
 			</header>
 			<main class="mdl-layout__content main">
 				<div class="content">
-					<select name="" id="" class="select-from">
-						<option>AUD</option>
-						<option>AZN</option>
-						<option>GBP</option>
-						<option>AMD</option>
-						<option>BYN</option>
-						<option>BGN</option>
-						<option>BRL</option>
-						<option>HUF</option>
-						<option>HKD</option>
-						<option>DKK</option>
-						<option>USD</option>
-						<option>EUR</option>
-						<option>RUB</option>
-						<option>INR</option>
-						<option>KZT</option>
-						<option>CAD</option>
-						<option>KGS</option>
-						<option>CNY</option>
-						<option>MDL</option>
-						<option>NOK</option>
-						<option>PLN</option>
-						<option>RON</option>
-						<option>XDR</option>
-						<option>SGD</option>
-						<option>TJS</option>
-						<option>TRY</option>
-						<option>TMT</option>
-						<option>UZS</option>
-						<option>UAH</option>
-						<option>CZK</option>
-						<option>SEK</option>
-						<option>CHF</option>
-						<option>ZAR</option>
-						<option>KRW</option>
-						<option>JPY</option>
-					</select>
-					<form action="#" class="money-input">
-					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input input-val1" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2">
-					    <label class="mdl-textfield__label" for="input2"></label>
-					    <span class="mdl-textfield__error">Input is not a number!</span>
-					  </div>
-					</form>
-					<select name="" id="" class="select-to">
-						<option>AUD</option>
-						<option>AZN</option>
-						<option>GBP</option>
-						<option>AMD</option>
-						<option>BYN</option>
-						<option>BGN</option>
-						<option>BRL</option>
-						<option>HUF</option>
-						<option>HKD</option>
-						<option>DKK</option>
-						<option>USD</option>
-						<option>EUR</option>
-						<option>RUB</option>
-						<option>INR</option>
-						<option>KZT</option>
-						<option>CAD</option>
-						<option>KGS</option>
-						<option>CNY</option>
-						<option>MDL</option>
-						<option>NOK</option>
-						<option>PLN</option>
-						<option>RON</option>
-						<option>XDR</option>
-						<option>SGD</option>
-						<option>TJS</option>
-						<option>TRY</option>
-						<option>TMT</option>
-						<option>UZS</option>
-						<option>UAH</option>
-						<option>CZK</option>
-						<option>SEK</option>
-						<option>CHF</option>
-						<option>ZAR</option>
-						<option>KRW</option>
-						<option>JPY</option>
-					</select>
-					<form action="#" class="money-input">
-					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input input-val2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1" readonly="">
-					    <label class="mdl-textfield__label" for="input1"></label>
-					    <span class="mdl-textfield__error">Input is not a number!</span>
-					  </div>
-					</form>
+					<div class="exchange-blocks">
+						<div class="block-from">
+							<select name="" id="" class="select-from">
+								<option>AUD</option>
+								<option>AZN</option>
+								<option>GBP</option>
+								<option>AMD</option>
+								<option>BYN</option>
+								<option>BGN</option>
+								<option>BRL</option>
+								<option>HUF</option>
+								<option>HKD</option>
+								<option>DKK</option>
+								<option>USD</option>
+								<option>EUR</option>
+								<option>RUB</option>
+								<option>INR</option>
+								<option>KZT</option>
+								<option>CAD</option>
+								<option>KGS</option>
+								<option>CNY</option>
+								<option>MDL</option>
+								<option>NOK</option>
+								<option>PLN</option>
+								<option>RON</option>
+								<option>XDR</option>
+								<option>SGD</option>
+								<option>TJS</option>
+								<option>TRY</option>
+								<option>TMT</option>
+								<option>UZS</option>
+								<option>UAH</option>
+								<option>CZK</option>
+								<option>SEK</option>
+								<option>CHF</option>
+								<option>ZAR</option>
+								<option>KRW</option>
+								<option>JPY</option>
+							</select>
+							<form action="#" class="money-input">
+							  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
+							    <label class="mdl-textfield__label" for="input1">from <span id="input1-name"></span></label>
+							    <span class="mdl-textfield__error">Input is not a number!</span>
+							  </div>
+							</form>
+						</div>
+						<div class="block-to">
+							<select name="" id="" class="select-to">
+								<option>AUD</option>
+								<option>AZN</option>
+								<option>GBP</option>
+								<option>AMD</option>
+								<option>BYN</option>
+								<option>BGN</option>
+								<option>BRL</option>
+								<option>HUF</option>
+								<option>HKD</option>
+								<option>DKK</option>
+								<option>USD</option>
+								<option>EUR</option>
+								<option>RUB</option>
+								<option>INR</option>
+								<option>KZT</option>
+								<option>CAD</option>
+								<option>KGS</option>
+								<option>CNY</option>
+								<option>MDL</option>
+								<option>NOK</option>
+								<option>PLN</option>
+								<option>RON</option>
+								<option>XDR</option>
+								<option>SGD</option>
+								<option>TJS</option>
+								<option>TRY</option>
+								<option>TMT</option>
+								<option>UZS</option>
+								<option>UAH</option>
+								<option>CZK</option>
+								<option>SEK</option>
+								<option>CHF</option>
+								<option>ZAR</option>
+								<option>KRW</option>
+								<option>JPY</option>
+							</select>
+							<form action="#" class="money-input">
+							  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2" readonly="">
+							    <label class="mdl-textfield__label" for="input2">to <span id="input2-name"></span></label>
+							    <span class="mdl-textfield__error">Input is not a number!</span>
+							  </div>
+							</form>
+						</div>
+					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit">
 					  Exchange
 					</button>
-				</div>	
+				</div>
 
 				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
 			</main>
