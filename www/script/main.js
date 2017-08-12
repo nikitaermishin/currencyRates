@@ -49,12 +49,12 @@ function requestFunc() {
 
 		req.send();
 	})
-};
+}
 
 async function getValutes() {
 	try {
 		var obj;
-		let promise = await requestFunc();
+		var promise = await requestFunc();
 		obj = JSON.parse(promise);
 		obj.Valute.RUB = {
 			Value: 1
@@ -69,7 +69,9 @@ async function getValutes() {
 }
 
 function checkConnection() {
-	if (!window.navigator.onLine) throw new Error('No internet connection');
+	if (!window.navigator.onLine) {
+		throw new Error('No internet connection');
+	}
 }
 
 function showNetErr(err) {
@@ -84,7 +86,7 @@ function showNetErr(err) {
 	  confirmButtonText:
 	    'Retry',
 	  cancelButtonText:
-	    '<span>Exit<span>'
+	    'Exit'
 	}).then(function () {
 		work();
 	}, function (dismiss) {
@@ -92,6 +94,8 @@ function showNetErr(err) {
 	  // 'close', and 'timer'
 	  if (dismiss === 'cancel') {
 	  	navigator.app.exitApp();
+	  } else if (dismiss === 'close') {
+	  	work();
 	  }
 	});
 }
@@ -132,8 +136,7 @@ function clickHandler() {
 	var to = selectTo.value;
 	var coef = data.Valute[from].Value / data.Valute[to].Value;
 	var val1 = parseFloat(input1.value);
-	var val2 = parseFloat(input2.value);
-	if (val1) {
+	if (!isNaN(val1)) {
 		input2.parentElement.classList.add('is-dirty');
 		input2.value = val1 * coef;
 	}

@@ -107,4 +107,8 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .choices__list--dropdown .choices__list {
+    max-height: 50vh;
+  }
 }
