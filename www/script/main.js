@@ -1,6 +1,6 @@
 "use strict";
 
-var input1 = document.querySelector('#input1'),
+let input1 = document.querySelector('#input1'),
 	input2 = document.querySelector('#input2'),
 	input1Placeholder = document.querySelector('#input1-name'),
 	input2Placeholder = document.querySelector('#input2-name'),
@@ -10,15 +10,15 @@ var input1 = document.querySelector('#input1'),
 	spinner = document.querySelector('.spinner'),
 	main = document.querySelector('.main'),
 	error = document.querySelector('.error'),
-	submit = document.querySelector('.submit');
+	submit = document.querySelector('.submit'),
+  choice1 = new Choices('.select-from', {searchEnabled: false}),
+	choice2 = new Choices('.select-to', {searchEnabled: false}),
+  data;
 
 changePlaceholder1();
 selectFrom.onchange = changePlaceholder1;
 changePlaceholder2();
 selectTo.onchange = changePlaceholder2;
-
-var choice1 = new Choices('.select-from', {searchEnabled: false});
-var choice2 = new Choices('.select-to', {searchEnabled: false});
 
 submit.onclick = clickHandler;
 
@@ -30,9 +30,9 @@ function onDeviceReady() {
 
 function requestFunc() {
 	return new Promise(function(resolve, reject) {
-		var url = "https://www.cbr-xml-daily.ru/daily_json.js";
+		let url = "https://www.cbr-xml-daily.ru/daily_json.js";
 
-		var req = new XMLHttpRequest();
+		let req = new XMLHttpRequest();
 		req.open('GET', url);
 
 		req.onload = function() {
@@ -41,37 +41,41 @@ function requestFunc() {
 			} else {
 				reject(Error('Error, status: ' + req.statusText));
 			}
-		}
+		};
 
 		req.onerror = function() {
 			reject('Error, problem with Network');
-		}
+		};
 
 		req.send();
 	})
 }
 
-async function getValutes() {
+async function getValutesOnline() {
 	try {
-		var obj;
-		var promise = await requestFunc();
+		let obj;
+		let promise = await requestFunc();
 		obj = JSON.parse(promise);
-		obj.Valute.RUB = {
+		obj['Valute'].RUB = {
 			Value: 1
-		}
+		};
 		console.log(obj);
-		window.data = obj;
-		main.classList.add('active');
-		content.classList.add('active');
+		data = obj;
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 	} catch (e) {
 		showNetErr(e);
 	}
+}
+
+function getValutesOffline() {
+	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/index.html", gotFile, fail);
 }
 
 function checkConnection() {
 	if (!window.navigator.onLine) {
 		throw new Error('No internet connection');
 	}
+	return true;
 }
 
 function showNetErr(err) {
@@ -103,9 +107,13 @@ function showNetErr(err) {
 function work() {
 	spinner.classList.remove('off');
 	try {
-		checkConnection();
-		getValutes();
-		// window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+		if (checkConnection()) {
+			getValutesOnline();
+		} else {
+			getValutesOffline();
+		}
+    main.classList.add('active');
+    content.classList.add('active');
 	} catch (e) {
 		showNetErr(e);
 	}
@@ -127,15 +135,30 @@ function gotFileWriter(writer) {
 	writer.write(JSON.stringify(data));
 }
 
+function gotFile(fileEntry) {
+    fileEntry.file(function(file) {
+        let reader = new FileReader();
+
+        reader.onloadend = function(e) {
+            console.log("Cashed data is: " + this.result);
+            data = this.result;
+        };
+
+        reader.readAsText(file);
+    });
+}
+
 function fail(err) {
 	throw new Error(err);
 }
 
 function clickHandler() {
-	var from = selectFrom.value;
-	var to = selectTo.value;
-	var coef = data.Valute[from].Value / data.Valute[to].Value;
-	var val1 = parseFloat(input1.value);
+	let from = selectFrom.value,
+    to = selectTo.value,
+    fromObj = data["Valute"][from],
+    toObj = data["Valute"][to],
+    coef = fromObj.Value / toObj.Value / fromObj["Nominal"] / toObj["Nominal"];
+	let val1 = parseFloat(input1.value);
 	if (!isNaN(val1)) {
 		input2.parentElement.classList.add('is-dirty');
 		input2.value = val1 * coef;
