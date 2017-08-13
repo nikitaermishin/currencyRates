@@ -72,10 +72,7 @@ function getValutesOffline() {
 }
 
 function checkConnection() {
-	if (!window.navigator.onLine) {
-		throw new Error('No internet connection');
-	}
-	return true;
+	return window.navigator.onLine;
 }
 
 function showNetErr(err) {
