@@ -129,7 +129,8 @@ function gotFileWriter(writer) {
 	writer.onwriteend = function(evt) {
 		console.log('Data cashed');
 	};
-	writer.write(JSON.stringify(data));
+	console.log(data);
+	writer.write(JSON.stringify(data));  //why?
 }
 
 function gotFile(fileEntry) {

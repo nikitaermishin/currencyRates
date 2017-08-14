@@ -68,7 +68,7 @@ async function getValutesOnline() {
 }
 
 function getValutesOffline() {
-	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/index.html", gotFile, fail);
+	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "cache.json", gotFile, fail);
 }
 
 function checkConnection() {
@@ -129,7 +129,8 @@ function gotFileWriter(writer) {
 	writer.onwriteend = function(evt) {
 		console.log('Data cashed');
 	};
-	writer.write(JSON.stringify(data));
+	console.log(data);
+	writer.write(JSON.stringify(data));  //why?
 }
 
 function gotFile(fileEntry) {
