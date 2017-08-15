@@ -1,6 +1,6 @@
 "use strict";
 
-let input1 = document.querySelector('#input1'),
+const input1 = document.querySelector('#input1'),
 	input2 = document.querySelector('#input2'),
 	input1Placeholder = document.querySelector('#input1-name'),
 	input2Placeholder = document.querySelector('#input2-name'),
@@ -9,12 +9,12 @@ let input1 = document.querySelector('#input1'),
 	content = document.querySelector('.content'),
 	spinner = document.querySelector('.spinner'),
 	main = document.querySelector('.main'),
-	error = document.querySelector('.error'),
-	submit = document.querySelector('.submit'),
-  choice1 = new Choices('.select-from', {searchEnabled: false}),
-	choice2 = new Choices('.select-to', {searchEnabled: false}),
-  data;
+	submit = document.querySelector('.submit');
 
+let data = {};
+
+new Choices('.select-from', {searchEnabled: false});
+new Choices('.select-to', {searchEnabled: false});
 changePlaceholder1();
 selectFrom.onchange = changePlaceholder1;
 changePlaceholder2();
@@ -22,7 +22,7 @@ selectTo.onchange = changePlaceholder2;
 
 submit.onclick = clickHandler;
 
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
 	work();
@@ -30,7 +30,7 @@ function onDeviceReady() {
 
 function requestFunc() {
 	return new Promise(function(resolve, reject) {
-		let url = "https://www.cbr-xml-daily.ru/daily_json.js";
+		let url = 'https://www.cbr-xml-daily.ru/daily_json.js';
 
 		let req = new XMLHttpRequest();
 		req.open('GET', url);
@@ -48,27 +48,27 @@ function requestFunc() {
 		};
 
 		req.send();
-	})
+	});
 }
 
 async function getValutesOnline() {
 	try {
 		let obj;
-		let promise = await requestFunc();
-		obj = JSON.parse(promise);
+		let result = await requestFunc();
+		obj = JSON.parse(result);
 		obj['Valute'].RUB = {
 			Value: 1
 		};
 		console.log(obj);
 		data = obj;
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, showCacheErr);
 	} catch (e) {
 		showNetErr(e);
 	}
 }
 
 function getValutesOffline() {
-	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "cache.json", gotFile, fail);
+	window.resolveLocalFileSystemURL('cache.json', gotFile, showCacheErr);
 }
 
 function checkConnection() {
@@ -118,18 +118,17 @@ function work() {
 }
 
 function gotFS(fileSystem) {
-	fileSystem.root.getFile("cache.json", {create: true, exclusive: false}, gotFileEntry, fail);
+	fileSystem.root.getFile(cordova.file.applicationDirectory + '/cache.json', {create: true, exclusive: false}, gotFileEntry, showCacheErr);
 }
 
 function gotFileEntry(fileEntry) {
-	fileEntry.createWriter(gotFileWriter, fail);
+	fileEntry.createWriter(gotFileWriter, showCacheErr);
 }
 
 function gotFileWriter(writer) {
-	writer.onwriteend = function(evt) {
+	writer.onwriteend = function() {
 		console.log('Data cashed');
 	};
-	console.log(data);
 	writer.write(JSON.stringify(data));  //why?
 }
 
@@ -137,8 +136,8 @@ function gotFile(fileEntry) {
     fileEntry.file(function(file) {
         let reader = new FileReader();
 
-        reader.onloadend = function(e) {
-            console.log("Cashed data is: " + this.result);
+        reader.onloadend = function() {
+            console.log('Cashed data is: ' + this.result);
             data = this.result;
         };
 
@@ -146,17 +145,13 @@ function gotFile(fileEntry) {
     });
 }
 
-function fail(err) {
-	throw new Error(err);
-}
-
 function clickHandler() {
-	let from = selectFrom.value,
+	const from = selectFrom.value,
     to = selectTo.value,
-    fromObj = data["Valute"][from],
-    toObj = data["Valute"][to],
-    coef = fromObj.Value / toObj.Value / fromObj["Nominal"] / toObj["Nominal"];
-	let val1 = parseFloat(input1.value);
+    fromObj = data['Valute'][from],
+    toObj = data['Valute'][to],
+    coef = fromObj.Value / toObj.Value / fromObj['Nominal'] / toObj['Nominal'],
+	  val1 = parseFloat(input1.value);
 	if (!isNaN(val1)) {
 		input2.parentElement.classList.add('is-dirty');
 		input2.value = val1 * coef;
@@ -169,4 +164,8 @@ function changePlaceholder1() {
 
 function changePlaceholder2() {
 	input2Placeholder.innerHTML = selectTo.value;
+}
+
+function showCacheErr(err) {
+  console.error(err);
 }
