@@ -68,7 +68,7 @@ async function getValutesOnline() {
 }
 
 function getValutesOffline() {
-	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + '/cache.json', gotFile, showCacheErr);
+	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + 'cache.json', gotFile, showCacheErr);
 }
 
 function checkConnection() {
@@ -118,7 +118,7 @@ function work() {
 }
 
 function gotFS(fileSystem) {
-	fileSystem.root.getFile(cordova.file.applicationDirectory + '/cache.json', {create: true, exclusive: false}, gotFileEntry, showCacheErr);
+	fileSystem.root.getFile(cordova.file.applicationDirectory + 'cache.json', {create: true, exclusive: false}, gotFileEntry, showCacheErr);
 }
 
 function gotFileEntry(fileEntry) {
