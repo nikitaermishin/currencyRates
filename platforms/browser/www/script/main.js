@@ -68,7 +68,7 @@ async function getValutesOnline() {
 }
 
 function getValutesOffline() {
-	window.resolveLocalFileSystemURL('cache.json', gotFile, showCacheErr);
+	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + '/cache.json', gotFile, showCacheErr);
 }
 
 function checkConnection() {
