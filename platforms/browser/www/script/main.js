@@ -200,7 +200,7 @@ function readFile() {
         let reader = new FileReader();
 
         reader.onloadend = function(e) {
-          data = this.result;
+          data = JSON.parse(this.result);
         };
         reader.readAsText(file);
       }, errorCallback);
