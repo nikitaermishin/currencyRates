@@ -61,14 +61,15 @@ async function getValutesOnline() {
 		};
 		console.log(obj);
 		data = obj;
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, showCacheErr);
+    createFile();
+    writeFile();
 	} catch (e) {
 		showNetErr(e);
 	}
 }
 
 function getValutesOffline() {
-	window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + 'cache.json', gotFile, showCacheErr);
+	readFile();
 }
 
 function checkConnection() {
@@ -117,34 +118,6 @@ function work() {
 	spinner.classList.add('off');
 }
 
-function gotFS(fileSystem) {
-	fileSystem.root.getFile(cordova.file.applicationDirectory + 'cache.json', {create: true, exclusive: false}, gotFileEntry, showCacheErr);
-}
-
-function gotFileEntry(fileEntry) {
-	fileEntry.createWriter(gotFileWriter, showCacheErr);
-}
-
-function gotFileWriter(writer) {
-	writer.onwriteend = function() {
-		console.log('Data cashed');
-	};
-	writer.write(JSON.stringify(data));  //why?
-}
-
-function gotFile(fileEntry) {
-    fileEntry.file(function(file) {
-        let reader = new FileReader();
-
-        reader.onloadend = function() {
-            console.log('Cashed data is: ' + this.result);
-            data = this.result;
-        };
-
-        reader.readAsText(file);
-    });
-}
-
 function clickHandler() {
 	const from = selectFrom.value,
     to = selectTo.value,
@@ -169,3 +142,72 @@ function changePlaceholder2() {
 function showCacheErr(err) {
   console.error(err);
 }
+
+function createFile() {
+  let type = window.TEMPORARY;
+  let size = 5*1024*1024;
+  window.requestFileSystem(type, size, successCallback, errorCallback)
+
+  function successCallback(fs) {
+    fs.root.getFile('cache.json', {create: true, exclusive: true}, function(fileEntry) {
+      console.log('File creation successfull!')
+    }, errorCallback);
+  }
+
+  function errorCallback(error) {
+    console.log("ERROR: " + error.code)
+  }
+
+}
+
+function writeFile() {
+  let type = window.TEMPORARY;
+  let size = 5*1024*1024;
+  window.requestFileSystem(type, size, successCallback, errorCallback)
+
+  function successCallback(fs) {
+    fs.root.getFile('cache.json', {create: true}, function(fileEntry) {
+
+      fileEntry.createWriter(function(fileWriter) {
+        fileWriter.onwriteend = function(e) {
+          console.log('Write completed.');
+        };
+
+        fileWriter.onerror = function(e) {
+          console.log('Write failed: ' + e.toString());
+        };
+
+        let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        fileWriter.write(blob);
+      }, errorCallback);
+    }, errorCallback);
+  }
+
+  function errorCallback(error) {
+    console.log("ERROR: " + error.code)
+  }
+}
+
+function readFile() {
+  let type = window.TEMPORARY;
+  let size = 5*1024*1024;
+  window.requestFileSystem(type, size, successCallback, errorCallback);
+
+  function successCallback(fs) {
+    fs.root.getFile('cache.json', {}, function(fileEntry) {
+
+      fileEntry.file(function(file) {
+        let reader = new FileReader();
+
+        reader.onloadend = function(e) {
+          data = this.result;
+        };
+        reader.readAsText(file);
+      }, errorCallback);
+    }, errorCallback);
+  }
+
+  function errorCallback(error) {
+    console.log("ERROR: " + error.code)
+  }
+}	
