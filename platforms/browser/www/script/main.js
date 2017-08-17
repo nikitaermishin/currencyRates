@@ -28,40 +28,16 @@ function onDeviceReady() {
 	work();
 }
 
-function requestFunc() {
-	return new Promise(function(resolve, reject) {
-		let url = 'https://www.cbr-xml-daily.ru/daily_json.js';
-
-		let req = new XMLHttpRequest();
-		req.open('GET', url);
-
-		req.onload = function() {
-			if (req.status === 200) {
-				resolve(req.response);
-			} else {
-				reject(Error('Error, status: ' + req.statusText));
-			}
-		};
-
-		req.onerror = function() {
-			reject('Error, problem with Network');
-		};
-
-		req.send();
-	});
-}
-
 async function getValutesOnline() {
 	try {
-		let obj;
-		let result = await requestFunc();
-		obj = JSON.parse(result);
+		let response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
+		let obj = await response.json();
 		obj['Valute'].RUB = {
-			Value: 1
+			Value: 1,
+			Nominal: 1
 		};
 		console.log(obj);
 		data = obj;
-    createFile();
     writeFile();
 	} catch (e) {
 		showNetErr(e);
@@ -143,23 +119,6 @@ function showCacheErr(err) {
   console.error(err);
 }
 
-function createFile() {
-  let type = window.TEMPORARY;
-  let size = 5*1024*1024;
-  window.requestFileSystem(type, size, successCallback, errorCallback)
-
-  function successCallback(fs) {
-    fs.root.getFile('cache.json', {create: true, exclusive: true}, function(fileEntry) {
-      console.log('File creation successfull!')
-    }, errorCallback);
-  }
-
-  function errorCallback(error) {
-    console.log("ERROR: " + error.code)
-  }
-
-}
-
 function writeFile() {
   let type = window.TEMPORARY;
   let size = 5*1024*1024;
@@ -170,11 +129,11 @@ function writeFile() {
 
       fileEntry.createWriter(function(fileWriter) {
         fileWriter.onwriteend = function(e) {
-          console.log('Write completed.');
+          throw new Error('Write completed.');
         };
 
         fileWriter.onerror = function(e) {
-          console.log('Write failed: ' + e.toString());
+          throw new Error('Write failed: ' + e.toString());
         };
 
         let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
@@ -184,7 +143,7 @@ function writeFile() {
   }
 
   function errorCallback(error) {
-    console.log("ERROR: " + error.code)
+    throw new Error("Write error: " + error.code)
   }
 }
 
@@ -208,6 +167,6 @@ function readFile() {
   }
 
   function errorCallback(error) {
-    console.log("ERROR: " + error.code)
+    throw new Error("Read error: " + error.code)
   }
 }	
