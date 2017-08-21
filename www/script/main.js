@@ -38,6 +38,9 @@ async function getValutesOnline() {
 		};
 		console.log(obj);
 		data = obj;
+		if (!data) {
+			throw new Error("Can`t get data");
+		}
     writeFile();
 	} catch (e) {
 		showNetErr(e);
