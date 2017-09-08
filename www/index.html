@@ -5,14 +5,14 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <meta name="theme-color" content="#9b59b6">
         <title>Exchanger</title>
-		<!-- Include Choices CSS -->
-		<link rel="stylesheet" href="choices/assets/styles/css/choices.min.css">
-		<!-- Include Choices JavaScript -->
-		<script src="choices/assets/scripts/dist/choices.min.js"></script>
 		<link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
-        <link rel="stylesheet" type="text/css" href="style/main.min.css">
+		<link rel="stylesheet" type="text/css" href="style/main.min.css">
+		<!--mdl-->
 	    <link rel="stylesheet" href="material/material.min.css">
-	    <script src="material/material.min.js"></script>
+		<script src="material/material.min.js"></script>
+		<!--getmdl-select-->   
+		<link rel="stylesheet" href="getmdl-select/getmdl-select.min.css">
+		<script defer src="getmdl-select/getmdl-select.min.js"></script>
     </head>
     <body>
 
@@ -23,97 +23,108 @@
 					<div class="mdl-layout-spacer"></div>
 				</div>
 			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">Exchanger</span>
+				<nav class="mdl-navigation">
+				  <a class="mdl-navigation__link" href="">Main</a>
+				  <a class="mdl-navigation__link" href="">Settings</a>
+				  <a class="mdl-navigation__link" href="">About</a>
+				</nav>
+			</div>
 			<main class="mdl-layout__content main">
 				<div class="content">
 					<div class="exchange-blocks">
 						<div class="block-from">
-							<select class="select-from">
-								<option>AUD</option>
-								<option>AZN</option>
-								<option>GBP</option>
-								<option>AMD</option>
-								<option>BYN</option>
-								<option>BGN</option>
-								<option>BRL</option>
-								<option>HUF</option>
-								<option>HKD</option>
-								<option>DKK</option>
-								<option>USD</option>
-								<option>EUR</option>
-								<option>RUB</option>
-								<option>INR</option>
-								<option>KZT</option>
-								<option>CAD</option>
-								<option>KGS</option>
-								<option>CNY</option>
-								<option>MDL</option>
-								<option>NOK</option>
-								<option>PLN</option>
-								<option>RON</option>
-								<option>XDR</option>
-								<option>SGD</option>
-								<option>TJS</option>
-								<option>TRY</option>
-								<option>TMT</option>
-								<option>UZS</option>
-								<option>UAH</option>
-								<option>CZK</option>
-								<option>SEK</option>
-								<option>CHF</option>
-								<option>ZAR</option>
-								<option>KRW</option>
-								<option>JPY</option>
-							</select>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+								<input class="mdl-textfield__input" type="text" id="select1" value="" readonly tabIndex="-1">
+								<label for="select1" class="mdl-textfield__label">Currency</label>
+								<ul for="select1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+										<li class="mdl-menu__item">AUD</li>
+										<li class="mdl-menu__item">BGN</li>
+										<li class="mdl-menu__item">BRL</li>
+										<li class="mdl-menu__item">CAD</li>
+										<li class="mdl-menu__item">CHF</li>
+										<li class="mdl-menu__item">CNY</li>
+										<li class="mdl-menu__item">CZK</li>
+										<li class="mdl-menu__item">DKK</li>
+										<li class="mdl-menu__item">GBP</li>
+										<li class="mdl-menu__item">HKD</li>
+										<li class="mdl-menu__item">HRK</li>
+										<li class="mdl-menu__item">HUF</li>
+										<li class="mdl-menu__item">IDR</li>
+										<li class="mdl-menu__item">ILS</li>
+										<li class="mdl-menu__item">INR</li>
+										<li class="mdl-menu__item">JPY</li>
+										<li class="mdl-menu__item">KRW</li>
+										<li class="mdl-menu__item">MXN</li>
+										<li class="mdl-menu__item">MYR</li>
+										<li class="mdl-menu__item">NOK</li>
+										<li class="mdl-menu__item">NZD</li>
+										<li class="mdl-menu__item">PHP</li>
+										<li class="mdl-menu__item">PLN</li>
+										<li class="mdl-menu__item">RON</li>
+										<li class="mdl-menu__item">RUB</li>
+										<li class="mdl-menu__item">SEK</li>
+										<li class="mdl-menu__item">SGD</li>
+										<li class="mdl-menu__item">THB</li>
+										<li class="mdl-menu__item">TRY</li>
+										<li class="mdl-menu__item">USD</li>
+										<li class="mdl-menu__item">ZAR</li>
+										<li class="mdl-menu__item">EUR</li>
+								</ul>
+							</div>
 							<form action="#" class="money-input">
 							  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
-							    <label class="mdl-textfield__label" for="input1">from <span id="input1-name"></span></label>
+							    <label class="mdl-textfield__label" for="input1">Value <span id="input1-name"></span></label>
 							    <span class="mdl-textfield__error">Input is not a number!</span>
 							  </div>
 							</form>
 						</div>
 						<div class="block-to">
-							<select class="select-to">
-								<option>AUD</option>
-								<option>AZN</option>
-								<option>GBP</option>
-								<option>AMD</option>
-								<option>BYN</option>
-								<option>BGN</option>
-								<option>BRL</option>
-								<option>HUF</option>
-								<option>HKD</option>
-								<option>DKK</option>
-								<option>USD</option>
-								<option>EUR</option>
-								<option>RUB</option>
-								<option>INR</option>
-								<option>KZT</option>
-								<option>CAD</option>
-								<option>KGS</option>
-								<option>CNY</option>
-								<option>MDL</option>
-								<option>NOK</option>
-								<option>PLN</option>
-								<option>RON</option>
-								<option>XDR</option>
-								<option>SGD</option>
-								<option>TJS</option>
-								<option>TRY</option>
-								<option>TMT</option>
-								<option>UZS</option>
-								<option>UAH</option>
-								<option>CZK</option>
-								<option>SEK</option>
-								<option>CHF</option>
-								<option>ZAR</option>
-								<option>KRW</option>
-								<option>JPY</option>
-							</select>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+								<input class="mdl-textfield__input" type="text" id="select2" value="" readonly tabIndex="-1">
+								<label for="select2" class="mdl-textfield__label">Currency</label>
+								<ul for="select2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+										<li class="mdl-menu__item">AUD</li>
+										<li class="mdl-menu__item">BGN</li>
+										<li class="mdl-menu__item">BRL</li>
+										<li class="mdl-menu__item">CAD</li>
+										<li class="mdl-menu__item">CHF</li>
+										<li class="mdl-menu__item">CNY</li>
+										<li class="mdl-menu__item">CZK</li>
+										<li class="mdl-menu__item">DKK</li>
+										<li class="mdl-menu__item">GBP</li>
+										<li class="mdl-menu__item">HKD</li>
+										<li class="mdl-menu__item">HRK</li>
+										<li class="mdl-menu__item">HUF</li>
+										<li class="mdl-menu__item">IDR</li>
+										<li class="mdl-menu__item">ILS</li>
+										<li class="mdl-menu__item">INR</li>
+										<li class="mdl-menu__item">JPY</li>
+										<li class="mdl-menu__item">KRW</li>
+										<li class="mdl-menu__item">MXN</li>
+										<li class="mdl-menu__item">MYR</li>
+										<li class="mdl-menu__item">NOK</li>
+										<li class="mdl-menu__item">NZD</li>
+										<li class="mdl-menu__item">PHP</li>
+										<li class="mdl-menu__item">PLN</li>
+										<li class="mdl-menu__item">RON</li>
+										<li class="mdl-menu__item">RUB</li>
+										<li class="mdl-menu__item">SEK</li>
+										<li class="mdl-menu__item">SGD</li>
+										<li class="mdl-menu__item">THB</li>
+										<li class="mdl-menu__item">TRY</li>
+										<li class="mdl-menu__item">USD</li>
+										<li class="mdl-menu__item">ZAR</li>
+										<li class="mdl-menu__item">EUR</li>
+								</ul>
+								</ul>
+							</div>
 							<form action="#" class="money-input">
-							  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							  <div class="mdl-textfield mdl-textfield--floating-label" id="inputBlock2">
 							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2" readonly="">
-							    <label class="mdl-textfield__label" for="input2">to <span id="input2-name"></span></label>
+							    <label class="mdl-textfield__label" for="input2">Value <span id="input2-name"></span></label>
 							    <span class="mdl-textfield__error">Input is not a number!</span>
 							  </div>
 							</form>
@@ -128,7 +139,7 @@
 			</main>
 		</div>
 		<script src="sweetalert2/sweetalert2.min.js"></script>	
-		<script src="script/main.min.js"></script>
+		<script src="script/main.js"></script>
 
 		<script type="text/javascript" src="cordova.js"></script>
     </body>

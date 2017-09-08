@@ -2,49 +2,60 @@
 
 const input1 = document.querySelector('#input1'),
 	input2 = document.querySelector('#input2'),
-	input1Placeholder = document.querySelector('#input1-name'),
-	input2Placeholder = document.querySelector('#input2-name'),
-	selectFrom = document.querySelector('.select-from'),
-	selectTo = document.querySelector('.select-to'),
+	selectFrom = document.querySelector('#select1'),
+	selectTo = document.querySelector('#select2'),
 	content = document.querySelector('.content'),
 	spinner = document.querySelector('.spinner'),
 	main = document.querySelector('.main'),
 	submit = document.querySelector('.submit');
 
 let data = {};
-
-new Choices('.select-from', {searchEnabled: false});
-new Choices('.select-to', {searchEnabled: false});
-changePlaceholder1();
-selectFrom.onchange = changePlaceholder1;
-changePlaceholder2();
-selectTo.onchange = changePlaceholder2;
+let	swalOptions = {
+	title: 'Oops...',
+	html: 'Problem with your internet connection!<br>Sorry, our app need internet.',
+	type: 'error',
+	showCloseButton: true,
+	showCancelButton: true,
+	allowOutsideClick: false,
+	confirmButtonText:
+		'Retry',
+	cancelButtonText:
+		'Exit'
+};
+let swalCallback = function (dismiss) {
+	if (dismiss === 'cancel') {
+		navigator.app.exitApp();
+	} else if (dismiss === 'close') {
+		work();
+	}
+};
 
 submit.onclick = clickHandler;
 
-document.addEventListener('deviceready', onDeviceReady, false);
-
-function onDeviceReady() {
-	work();
-}
+document.addEventListener('deviceready', work, false);
 
 async function getValutesOnline() {
 	try {
-		let response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
-		let obj = await response.json();
-		obj['Valute'].RUB = {
-			Value: 1,
-			Nominal: 1
-		};
-		console.log(obj);
-		data = obj;
-		if (!data) {
-			throw new Error("Can`t get data");
-		}
+		data = await getAndParseJSON('http://api.fixer.io/latest');
+		configObj(data);
     writeFile();
 	} catch (e) {
 		showNetErr(e);
 	}
+}
+
+function configObj(obj) { // Adding Rubles and writing to <data>
+	obj.rates[obj.base] = 1;
+	console.log(obj);
+	if (!obj) {
+		throw new Error("Can`t get data");
+	}
+}
+
+async function getAndParseJSON(url) { // Geting and parsing Json
+	let response = await fetch(url);
+	let obj = await response.json();
+	return obj;
 }
 
 function getValutesOffline() {
@@ -57,65 +68,37 @@ function checkConnection() {
 
 function showNetErr(err) {
 	console.error(err);
-	swal({
-	  title: 'Oops...',
-	  html: 'Problem with your internet connection!<br>Sorry, our app need internet.',
-	  type: 'error',
-	  showCloseButton: true,
-	  showCancelButton: true,
-	  allowOutsideClick: false,
-	  confirmButtonText:
-	    'Retry',
-	  cancelButtonText:
-	    'Exit'
-	}).then(function () {
+	swal(swalOptions).then(function () {
 		work();
-	}, function (dismiss) {
-	  // dismiss can be 'cancel', 'overlay',
-	  // 'close', and 'timer'
-	  if (dismiss === 'cancel') {
-	  	navigator.app.exitApp();
-	  } else if (dismiss === 'close') {
-	  	work();
-	  }
-	});
+	}, swalCallback);
 }
 
 function work() {
-	spinner.classList.remove('off');
 	try {
-		if (checkConnection()) {
-			getValutesOnline();
-		} else {
-			getValutesOffline();
-		}
-    main.classList.add('active');
-    content.classList.add('active');
+		checkConnection() ? getValutesOnline() : getValutesOffline();
+    enableMain();
 	} catch (e) {
 		showNetErr(e);
 	}
 	spinner.classList.add('off');
 }
 
+function enableMain() {
+	main.classList.add('active');
+	content.classList.add('active');
+}
+
 function clickHandler() {
 	const from = selectFrom.value,
     to = selectTo.value,
-    fromObj = data['Valute'][from],
-    toObj = data['Valute'][to],
-    coef = fromObj.Value / toObj.Value / fromObj['Nominal'] / toObj['Nominal'],
+    fromObj = data.rates[from],
+    toObj = data.rates[to],
+    coef = fromObj / toObj,
 	  val1 = parseFloat(input1.value);
-	if (!isNaN(val1)) {
+	if (!isNaN(val1) && coef) {
 		input2.parentElement.classList.add('is-dirty');
-		input2.value = val1 * coef;
+		input2.value = (val1 * coef) || 0;
 	}
-}
-
-function changePlaceholder1() {
-	input1Placeholder.innerHTML = selectFrom.value;
-}
-
-function changePlaceholder2() {
-	input2Placeholder.innerHTML = selectTo.value;
 }
 
 function showCacheErr(err) {
@@ -172,4 +155,4 @@ function readFile() {
   function errorCallback(error) {
     throw new Error("Read error: " + error.code)
   }
-}	
+}
