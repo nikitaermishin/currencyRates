@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>exchanger</name>
+<widget id="com.phonegap.currencyrates" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Currency rates</name>
     <description>
-        A blank PhoneGap app.
+        An easy-to-use mobile converter
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+        Nikita Ermishin
     </author>
     <content src="index.html" />
-    <access origin="https://www.cbr-xml-daily.ru/daily_json.js" />
+    <access origin="http://api.fixer.io/latest" />
     <plugin name="cordova-plugin-whitelist" source="npm" />
     <plugin name="cordova-plugin-file" spec="~4.3.3" />
 </widget>
