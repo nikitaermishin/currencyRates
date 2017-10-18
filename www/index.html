@@ -1,146 +1,347 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <meta name="theme-color" content="#9b59b6">
-        <title>Exchanger</title>
-		<link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
-		<link rel="stylesheet" type="text/css" href="style/main.min.css">
-		<!--mdl-->
-	    <link rel="stylesheet" href="material/material.min.css">
-		<script src="material/material.min.js"></script>
-		<!--getmdl-select-->   
-		<link rel="stylesheet" href="getmdl-select/getmdl-select.min.css">
-		<script defer src="getmdl-select/getmdl-select.min.js"></script>
+      <meta charset="utf-8">
+      <title>Exchanger</title>
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+            <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
+            <link rel="stylesheet"
+            href="material-components-web/dist/material-components-web.css">
+            <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="style/main.min.css">
     </head>
-    <body>
+    <!-- <body>
 
-		<div class="mdl-layout mdl-js-layout mdl-la mdl-layout--fixed-header">
-			<header class="mdl-layout__header">
-				<div class="mdl-layout__header-row">
-					<span class="mdl-layout__title">Exchanger</span>
-					<div class="mdl-layout-spacer"></div>
-				</div>
-			</header>
-			<div class="mdl-layout__drawer">
-				<span class="mdl-layout-title">Exchanger</span>
-				<nav class="mdl-navigation">
-				  <a class="mdl-navigation__link" href="">Main</a>
-				  <a class="mdl-navigation__link" href="">Settings</a>
-				  <a class="mdl-navigation__link" href="">About</a>
-				</nav>
-			</div>
-			<main class="mdl-layout__content main">
-				<div class="content">
-					<div class="exchange-blocks">
-						<div class="block-from">
-							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-								<input class="mdl-textfield__input" type="text" id="select1" value="" readonly tabIndex="-1">
-								<label for="select1" class="mdl-textfield__label">Currency</label>
-								<ul for="select1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-										<li class="mdl-menu__item">AUD</li>
-										<li class="mdl-menu__item">BGN</li>
-										<li class="mdl-menu__item">BRL</li>
-										<li class="mdl-menu__item">CAD</li>
-										<li class="mdl-menu__item">CHF</li>
-										<li class="mdl-menu__item">CNY</li>
-										<li class="mdl-menu__item">CZK</li>
-										<li class="mdl-menu__item">DKK</li>
-										<li class="mdl-menu__item">GBP</li>
-										<li class="mdl-menu__item">HKD</li>
-										<li class="mdl-menu__item">HRK</li>
-										<li class="mdl-menu__item">HUF</li>
-										<li class="mdl-menu__item">IDR</li>
-										<li class="mdl-menu__item">ILS</li>
-										<li class="mdl-menu__item">INR</li>
-										<li class="mdl-menu__item">JPY</li>
-										<li class="mdl-menu__item">KRW</li>
-										<li class="mdl-menu__item">MXN</li>
-										<li class="mdl-menu__item">MYR</li>
-										<li class="mdl-menu__item">NOK</li>
-										<li class="mdl-menu__item">NZD</li>
-										<li class="mdl-menu__item">PHP</li>
-										<li class="mdl-menu__item">PLN</li>
-										<li class="mdl-menu__item">RON</li>
-										<li class="mdl-menu__item">RUB</li>
-										<li class="mdl-menu__item">SEK</li>
-										<li class="mdl-menu__item">SGD</li>
-										<li class="mdl-menu__item">THB</li>
-										<li class="mdl-menu__item">TRY</li>
-										<li class="mdl-menu__item">USD</li>
-										<li class="mdl-menu__item">ZAR</li>
-										<li class="mdl-menu__item">EUR</li>
-								</ul>
-							</div>
-							<form action="#" class="money-input">
-							  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
-							    <label class="mdl-textfield__label" for="input1">Value <span id="input1-name"></span></label>
-							    <span class="mdl-textfield__error">Input is not a number!</span>
-							  </div>
-							</form>
-						</div>
-						<div class="block-to">
-							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-								<input class="mdl-textfield__input" type="text" id="select2" value="" readonly tabIndex="-1">
-								<label for="select2" class="mdl-textfield__label">Currency</label>
-								<ul for="select2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-										<li class="mdl-menu__item">AUD</li>
-										<li class="mdl-menu__item">BGN</li>
-										<li class="mdl-menu__item">BRL</li>
-										<li class="mdl-menu__item">CAD</li>
-										<li class="mdl-menu__item">CHF</li>
-										<li class="mdl-menu__item">CNY</li>
-										<li class="mdl-menu__item">CZK</li>
-										<li class="mdl-menu__item">DKK</li>
-										<li class="mdl-menu__item">GBP</li>
-										<li class="mdl-menu__item">HKD</li>
-										<li class="mdl-menu__item">HRK</li>
-										<li class="mdl-menu__item">HUF</li>
-										<li class="mdl-menu__item">IDR</li>
-										<li class="mdl-menu__item">ILS</li>
-										<li class="mdl-menu__item">INR</li>
-										<li class="mdl-menu__item">JPY</li>
-										<li class="mdl-menu__item">KRW</li>
-										<li class="mdl-menu__item">MXN</li>
-										<li class="mdl-menu__item">MYR</li>
-										<li class="mdl-menu__item">NOK</li>
-										<li class="mdl-menu__item">NZD</li>
-										<li class="mdl-menu__item">PHP</li>
-										<li class="mdl-menu__item">PLN</li>
-										<li class="mdl-menu__item">RON</li>
-										<li class="mdl-menu__item">RUB</li>
-										<li class="mdl-menu__item">SEK</li>
-										<li class="mdl-menu__item">SGD</li>
-										<li class="mdl-menu__item">THB</li>
-										<li class="mdl-menu__item">TRY</li>
-										<li class="mdl-menu__item">USD</li>
-										<li class="mdl-menu__item">ZAR</li>
-										<li class="mdl-menu__item">EUR</li>
-								</ul>
-								</ul>
-							</div>
-							<form action="#" class="money-input">
-							  <div class="mdl-textfield mdl-textfield--floating-label" id="inputBlock2">
-							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2" readonly="">
-							    <label class="mdl-textfield__label" for="input2">Value <span id="input2-name"></span></label>
-							    <span class="mdl-textfield__error">Input is not a number!</span>
-							  </div>
-							</form>
-						</div>
-					</div>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit">
-					  Exchange
-					</button>
-				</div>
+        <div class="mdl-layout mdl-js-layout mdl-la mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout__title">Exchanger</span>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">Exchanger</span>
+                <nav class="mdl-navigation">
+                  <a class="mdl-navigation__link" href="">Main</a>
+                  <a class="mdl-navigation__link" href="">Settings</a>
+                  <a class="mdl-navigation__link" href="">About</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content main">
+                <div class="content">
+                    <div class="exchange-blocks">
+                        <div class="block-from">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                                <input class="mdl-textfield__input" type="text" id="select1" value="" readonly tabIndex="-1">
+                                <label for="select1" class="mdl-textfield__label">Currency</label>
+                                <ul for="select1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item">AUD</li>
+                                        <li class="mdl-menu__item">BGN</li>
+                                        <li class="mdl-menu__item">BRL</li>
+                                        <li class="mdl-menu__item">CAD</li>
+                                        <li class="mdl-menu__item">CHF</li>
+                                        <li class="mdl-menu__item">CNY</li>
+                                        <li class="mdl-menu__item">CZK</li>
+                                        <li class="mdl-menu__item">DKK</li>
+                                        <li class="mdl-menu__item">GBP</li>
+                                        <li class="mdl-menu__item">HKD</li>
+                                        <li class="mdl-menu__item">HRK</li>
+                                        <li class="mdl-menu__item">HUF</li>
+                                        <li class="mdl-menu__item">IDR</li>
+                                        <li class="mdl-menu__item">ILS</li>
+                                        <li class="mdl-menu__item">INR</li>
+                                        <li class="mdl-menu__item">JPY</li>
+                                        <li class="mdl-menu__item">KRW</li>
+                                        <li class="mdl-menu__item">MXN</li>
+                                        <li class="mdl-menu__item">MYR</li>
+                                        <li class="mdl-menu__item">NOK</li>
+                                        <li class="mdl-menu__item">NZD</li>
+                                        <li class="mdl-menu__item">PHP</li>
+                                        <li class="mdl-menu__item">PLN</li>
+                                        <li class="mdl-menu__item">RON</li>
+                                        <li class="mdl-menu__item">RUB</li>
+                                        <li class="mdl-menu__item">SEK</li>
+                                        <li class="mdl-menu__item">SGD</li>
+                                        <li class="mdl-menu__item">THB</li>
+                                        <li class="mdl-menu__item">TRY</li>
+                                        <li class="mdl-menu__item">USD</li>
+                                        <li class="mdl-menu__item">ZAR</li>
+                                        <li class="mdl-menu__item">EUR</li>
+                                </ul>
+                            </div>
+                            <form action="#" class="money-input">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input1">
+                                <label class="mdl-textfield__label" for="input1">Value <span id="input1-name"></span></label>
+                                <span class="mdl-textfield__error">Input is not a number!</span>
+                              </div>
+                            </form>
+                        </div>
+                        <div class="block-to">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                                <input class="mdl-textfield__input" type="text" id="select2" value="" readonly tabIndex="-1">
+                                <label for="select2" class="mdl-textfield__label">Currency</label>
+                                <ul for="select2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item">AUD</li>
+                                        <li class="mdl-menu__item">BGN</li>
+                                        <li class="mdl-menu__item">BRL</li>
+                                        <li class="mdl-menu__item">CAD</li>
+                                        <li class="mdl-menu__item">CHF</li>
+                                        <li class="mdl-menu__item">CNY</li>
+                                        <li class="mdl-menu__item">CZK</li>
+                                        <li class="mdl-menu__item">DKK</li>
+                                        <li class="mdl-menu__item">GBP</li>
+                                        <li class="mdl-menu__item">HKD</li>
+                                        <li class="mdl-menu__item">HRK</li>
+                                        <li class="mdl-menu__item">HUF</li>
+                                        <li class="mdl-menu__item">IDR</li>
+                                        <li class="mdl-menu__item">ILS</li>
+                                        <li class="mdl-menu__item">INR</li>
+                                        <li class="mdl-menu__item">JPY</li>
+                                        <li class="mdl-menu__item">KRW</li>
+                                        <li class="mdl-menu__item">MXN</li>
+                                        <li class="mdl-menu__item">MYR</li>
+                                        <li class="mdl-menu__item">NOK</li>
+                                        <li class="mdl-menu__item">NZD</li>
+                                        <li class="mdl-menu__item">PHP</li>
+                                        <li class="mdl-menu__item">PLN</li>
+                                        <li class="mdl-menu__item">RON</li>
+                                        <li class="mdl-menu__item">RUB</li>
+                                        <li class="mdl-menu__item">SEK</li>
+                                        <li class="mdl-menu__item">SGD</li>
+                                        <li class="mdl-menu__item">THB</li>
+                                        <li class="mdl-menu__item">TRY</li>
+                                        <li class="mdl-menu__item">USD</li>
+                                        <li class="mdl-menu__item">ZAR</li>
+                                        <li class="mdl-menu__item">EUR</li>
+                                </ul>
+                                </ul>
+                            </div>
+                            <form action="#" class="money-input">
+                              <div class="mdl-textfield mdl-textfield--floating-label" id="inputBlock2">
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="input2" readonly="">
+                                <label class="mdl-textfield__label" for="input2">Value <span id="input2-name"></span></label>
+                                <span class="mdl-textfield__error">Input is not a number!</span>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit">
+                      Exchange
+                    </button>
+                </div>
 
-				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
-			</main>
-		</div>
-		<script src="sweetalert2/sweetalert2.min.js"></script>	
-		<script src="script/main.js"></script>
+                <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active spinner"></div>
+            </main>
+        </div>
+        <script src="sweetalert2/sweetalert2.min.js"></script>	
+        <script src="script/main.js"></script>
 
-		<script type="text/javascript" src="cordova.js"></script>
-    </body>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body> -->
+        <body>
+            <aside class="mdc-temporary-drawer mdc-typography">
+                <nav class="mdc-temporary-drawer__drawer">
+
+                    <div class="mdc-temporary-drawer__toolbar-spacer">Converter</div>
+
+                    <nav class="mdc-temporary-drawer__content mdc-list">
+                    <a class="mdc-list-item mdc-temporary-drawer--selected" href="#" data-window=".page__main">
+                        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">attach_money</i>Converter
+                    </a>
+                    <!-- <a class="mdc-list-item" href="#" data-window=".page__settings">
+                        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">settings</i>Settings
+                    </a> -->
+                    <a class="mdc-list-item" href="#" data-window=".page__about">
+                        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">help</i>About us
+                    </a>
+                    </nav>
+                </nav>
+            </aside>
+                
+                <div class="page__main" style="display: none;">
+                    <header class="mdc-toolbar">
+                        <div class="mdc-toolbar__row">
+                            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                            <a href="#" class="material-icons mdc-toolbar__icon--menu menu">menu</a>
+                            <span class="mdc-toolbar__title">Currency converter</span>
+                            </section>
+                        </div>
+                    </header>
+                    <div class="part__up --mdc-theme-background">
+                        <!-- select -->
+                        <div class="mdc-select" role="listbox" tabindex="0">
+                                <span class="mdc-select__selected-text">Choose currency</span>
+                                <div class="mdc-simple-menu mdc-select__menu">
+                                <ul class="mdc-list mdc-simple-menu__items">
+                                    <li class="mdc-list-item" role="option" tabindex="0">AUD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">BGN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">BRL</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CAD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CHF</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CNY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CZK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">DKK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">EUR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">GBP</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HKD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HRK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HUF</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">IDR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">ILS</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">INR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">JPY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">KRW</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">MXN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">MYR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">NOK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">NZD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">PHP</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">PLN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">RON</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">RUB</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">SEK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">SGD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">THB</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">TRY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">USD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">ZAR</li>
+                                </ul>
+                                </div>
+                            </div>
+                        <!-- input -->
+                        <div class="input-wrapper">
+                        <div class="mdc-textfield">
+                                <input type="text" id="textfield1" pattern="-?[0-9]*(\.[0-9]+)?" aria-controls="textfield1-validation-msg" class="mdc-textfield__input">
+                                <label class="mdc-textfield__label" for="textfield1">Value</label>
+                            </div>
+                            <p class="mdc-textfield-helptext
+                            mdc-textfield-helptext--validation-msg"
+                            id="textfield1-validation-msg">
+                            Value must be a number
+                        </p>
+                        </div>
+
+                        <!-- changer -->
+                        <button class="mdc-fab material-icons" aria-label="swap" id="changer">
+                                <span class="mdc-fab__icon">
+                                    swap_horiz									
+                                </span>
+                            </button>
+                    </div>
+                    <div class="part__down">
+                        <!-- select -->
+                        <div class="mdc-select" role="listbox" tabindex="0">
+                                <span class="mdc-select__selected-text">Choose currency</span>
+                                <div class="mdc-simple-menu mdc-select__menu">
+                                <ul class="mdc-list mdc-simple-menu__items">
+                                    <li class="mdc-list-item" role="option" tabindex="0">AUD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">BGN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">BRL</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CAD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CHF</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CNY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">CZK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">DKK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">EUR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">GBP</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HKD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HRK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">HUF</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">IDR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">ILS</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">INR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">JPY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">KRW</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">MXN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">MYR</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">NOK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">NZD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">PHP</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">PLN</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">RON</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">RUB</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">SEK</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">SGD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">THB</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">TRY</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">USD</li>
+                                    <li class="mdc-list-item" role="option" tabindex="0">ZAR</li>
+                                </ul>
+                                </div>
+                            </div>
+                        
+                        <!-- input -->
+                        <div class="input-wrapper">
+                        <div class="mdc-textfield">
+                                <input type="text" id="textfield2" pattern="-?[0-9]*(\.[0-9]+)?" aria-controls="textfield2-validation-msg" class="mdc-textfield__input" disabled>
+                                <label class="mdc-textfield__label" for="textfield2">Value</label>
+                            </div>
+                            <p class="mdc-textfield-helptext
+                            mdc-textfield-helptext--validation-msg"
+                            id="textfield2-validation-msg">
+                            Value must be a number
+                        </p>
+                        </div>
+                    </div>
+                    <div class="mdc-snackbar"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        aria-hidden="true">
+                    <div class="mdc-snackbar__text"></div>
+                    <div class="mdc-snackbar__action-wrapper">
+                        <button type="button" class="mdc-button mdc-snackbar__action-button"></button>
+                    </div>
+                    </div>
+                </div>
+                <!-- <div class="page__settings" style="display: none;">
+                    <header class="mdc-toolbar">
+                        <div class="mdc-toolbar__row">
+                            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                            <a href="#" class="material-icons mdc-toolbar__icon--menu menu">menu</a>
+                            <span class="mdc-toolbar__title">Settings</span>
+                            </section>
+                        </div>
+                    </header>
+                    <div class="page__up">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Night mode</td>
+                                    <td>
+                                        <div class="mdc-switch">
+                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" />
+                                        <div class="mdc-switch__background">
+                                            <div class="mdc-switch__knob"></div>
+                                        </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> -->
+                <div class="page__about" style="display: none;">
+                    <header class="mdc-toolbar">
+                        <div class="mdc-toolbar__row">
+                            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                            <a href="#" class="material-icons mdc-toolbar__icon--menu menu">menu</a>
+                            <span class="mdc-toolbar__title">About</span>
+                            </section>
+                        </div>
+                    </header>
+                    <div class="page__up">
+                        <h3>Currency converter is modern and easy-to-use converter with the most popular currencies.</h3><br>
+                        <p>Currency converter has been created in 2017 by Nikita Ermishin - web developer from Russia</p>
+                    </div>
+                </div>
+                <div class="page__loading">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner mdc-theme--secondary"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            <script src="material-components-web/dist/material-components-web.js"></script>
+            <script src="sweetalert2/sweetalert2.min.js"></script>	
+            <script>mdc.autoInit()</script>
+            <script src="script/main.min.js"></script>
+        </body>
 </html>

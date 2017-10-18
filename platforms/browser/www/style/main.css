@@ -9,6 +9,11 @@
     url(../material/fonts/MaterialIcons-Regular.woff) format('woff'),
     url(../material/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
+
+body {
+  height: 100vh;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -37,6 +42,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .content {
@@ -60,7 +66,7 @@
 .submit {
   width: 100%;
   position: fixed;
-  top: 100%
+  top: 100%;
   bottom: 20px;
   display: block;
 }
@@ -111,4 +117,64 @@
   .choices__list--dropdown .choices__list {
     max-height: 50vh;
   }
+}
+
+.part__up, .part__down {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 36px 20px;
+}
+
+.part__up {
+  height: 130px;
+  background-color: #e1e2e1;
+  position: relative;
+}
+
+.part__down {
+  padding: 10px 20px;
+}
+
+#changer {
+  position: absolute;
+  bottom: calc(-56px/2);
+  left: calc(50% - 56px/2);
+}
+
+.mdc-select {
+  min-width: 45% !important;
+  width: 45% !important;
+}
+
+.input-wrapper {
+  width: 45%;
+  font-family: Roboto, sans-serif;
+}
+
+.input-wrapper .mdc-textfield {
+  width: 100%;
+}
+
+.page__settings {
+  background: #e1e2e1;
+} 
+
+.page__about {
+  background: #e1e2e1;
+} 
+
+.page__main, .page__about, .page__settings, .page__loading {
+  height: 100%;
+}
+
+.page__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page__loading.off {
+  display: none;
 }
