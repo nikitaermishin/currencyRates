@@ -162,8 +162,12 @@ body {
 } 
 
 .page__about {
-  background: #e1e2e1;
-} 
+  background: #fff;
+}
+
+.page__about .page__up {
+  padding: 5px;
+}
 
 .page__main, .page__about, .page__settings, .page__loading {
   height: 100%;
@@ -177,4 +181,12 @@ body {
 
 .page__loading.off {
   display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }

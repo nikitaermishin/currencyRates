@@ -1,38 +1,93 @@
 "use strict";
 
-let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
-document.querySelectorAll('.menu').forEach(item => item.addEventListener('click', () => drawer.open = true));
-const select1 = new mdc.select.MDCSelect(document.querySelectorAll('.mdc-select')[0]);
-const select2 = new mdc.select.MDCSelect(document.querySelectorAll('.mdc-select')[1]);
-const textfield1 = new mdc.textfield.MDCTextfield(document.querySelectorAll('.mdc-textfield')[0]);
-const textfield2 = new mdc.textfield.MDCTextfield(document.querySelectorAll('.mdc-textfield')[1]);
-const swap = document.querySelector('#changer');
-const list = document.querySelectorAll('.page__main, .page__settings, .page__about');
-const innerDrawerChld = Array.prototype.slice.call(document.querySelector('.mdc-temporary-drawer__content').children);
-const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
-const pageLoading = document.querySelector('.page__loading');
-const pageMain = document.querySelector('.page__main');
-document.querySelectorAll('.mdc-temporary-drawer__content > .mdc-list-item').forEach(item => item.addEventListener('click', openWindow));
-
-let val;
-
-let snackbarOpt = {
-	actionText: 'OK',
-	actionHandler: function () {},
-	timeout: 100000000000000000
+async function preload() {
+	let data = await request();
+	render(data);
+	main(data);
 }
 
-select1.listen('MDCSelect:change', () => {
-    calc();
-});
-select2.listen('MDCSelect:change', () => {
-    calc();
-});
+// REQUEST
 
-const spinner = document.querySelector('.spinner'),
-	main = document.querySelector('.page__main');
+async function request() {
+	let value;
+	try {
+		value = checkConnection() ? await getValutesOnline() : getCache();
+	} catch(e) {
+		showNetErr(e);
+	}
+	return value;
+}
 
-let data = {};
+async function getValutesOnline() {
+	try {
+		let data = await getAndParseJSON('http://api.fixer.io/latest');
+		configObj(data);
+		writeFile(data);
+		return data;
+	} catch (e) {
+		showNetErr(e);
+	}
+}
+
+async function getAndParseJSON(url) {
+	let response = await fetch(url);
+	let obj = await response.json();
+	return obj;
+}
+
+function showNetErr(err) {
+	console.error(err);
+	swal(swalOptions).then(function () {
+		preload();
+	}, swalCallback);
+}
+
+function configObj(obj) { // Adding Base
+	obj.rates[obj.base] = 1;
+	console.log(obj);
+	if (!obj) {
+		throw new Error("Can`t get data");
+	}
+}
+
+function checkConnection() {
+	return window.navigator.onLine;
+}
+
+function getCache() {
+	return readFile() || showCacheErr();
+}
+
+// RENDER
+
+function render(data) {
+	class List extends React.Component {
+		render() {
+			let data = this.props.data,
+				inner = [];
+			for (let key in data.rates) {
+				inner.push(<li className="mdc-list-item" role="option" tabindex="0">{key}</li>)
+			}
+			return (<ul className="mdc-list mdc-simple-menu__items">
+				{inner}
+				</ul>
+			);
+		}
+	}
+
+	ReactDOM.render(
+		<List data={data}/>,
+		document.getElementById('list-from-wrapper')
+	);
+
+	ReactDOM.render(
+		<List data={data}/>,
+		document.getElementById('list-to-wrapper')
+	);
+}
+
+// SWAL
+
 let	swalOptions = {
 	title: 'Oops...',
 	html: 'Problem with your internet connection!<br>Sorry, our app need internet.',
@@ -49,102 +104,105 @@ let swalCallback = function (dismiss) {
 	if (dismiss === 'cancel') {
 		navigator.app.exitApp();
 	} else if (dismiss === 'close') {
-		work();
+		preload();
 	}
 };
 
-swap.onclick = swapHandler;
+function main(data) {
+	mdc.autoInit();
+	let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-temporary-drawer'));
+	document.querySelectorAll('.menu').forEach(item => item.addEventListener('click', () => drawer.open = true));
+	const select1 = new mdc.select.MDCSelect(document.querySelectorAll('.mdc-select')[0]);
+	const select2 = new mdc.select.MDCSelect(document.querySelectorAll('.mdc-select')[1]);
+	const textfield1 = new mdc.textfield.MDCTextfield(document.querySelectorAll('.mdc-textfield')[0]);
+	const textfield2 = new mdc.textfield.MDCTextfield(document.querySelectorAll('.mdc-textfield')[1]);
+	const swap = document.querySelector('#changer');
+	const list = document.querySelectorAll('.page__main, .page__settings, .page__about');
+	const innerDrawerChld = Array.prototype.slice.call(document.querySelector('.mdc-temporary-drawer__content').children);
+	const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
+	const pageLoading = document.querySelector('.page__loading');
+	const pageMain = document.querySelector('.page__main');
+	document.querySelectorAll('.mdc-temporary-drawer__content > .mdc-list-item').forEach(item => item.addEventListener('click', function() {openWindow(this, drawer, list, innerDrawerChld)}));
 
-document.addEventListener('deviceready', work, false);
+	let val;
 
-async function getValutesOnline() {
-	try {
-		data = await getAndParseJSON('http://api.fixer.io/latest');
-		configObj(data);
-        // writeFile();
-	} catch (e) {
-		showNetErr(e);
-	}
+	select1.listen('MDCSelect:change', () => {
+		calc(data, select1, select2, textfield1, textfield2);
+	});
+	select2.listen('MDCSelect:change', () => {
+		calc(data, select1, select2, textfield1, textfield2);
+	});
+
+	swap.onclick = () => {swapHandler(data, select1, select2, textfield1, textfield2)};
+	setInterval(checker, 10, data, select1, select2, textfield1, textfield2, val);
+
+	setTimeout(() => {
+		pageLoading.classList.add('off')
+		pageMain.style.display = 'block';
+	}, 20);
 }
 
-function configObj(obj) { // Adding Base and writing to <data>
-	obj.rates[obj.base] = 1;
-	console.log(obj);
-	if (!obj) {
-		throw new Error("Can`t get data");
-	}
+function openWindow(elem, drawer, list, innerDrawerChld) {
+     let className = elem.dataset.window;
+     list.forEach(item => item.style.display = 'none');
+     document.querySelector(className).style.display = 'block';
+     innerDrawerChld.forEach(item => item.classList.remove('mdc-temporary-drawer--selected'));
+     elem.classList.add('mdc-temporary-drawer--selected');
+     drawer.open = false;
 }
 
-async function getAndParseJSON(url) { // Geting and parsing Json
-	let response = await fetch(url);
-	let obj = await response.json();
-	return obj;
-}
+// CALC
 
-function getValutesOffline() {
-	readFile();
-}
-
-function checkConnection() {
-	return window.navigator.onLine;
-}
-
-function showNetErr(err) {
-	console.error(err);
-	swal(swalOptions).then(function () {
-		work();
-	}, swalCallback);
-}
-
-function work() {
-	try {
-		checkConnection() ? getValutesOnline() : getValutesOffline();
-    enableMain();
-	} catch (e) {
-		showNetErr(e);
-	}
-	pageLoading.classList.add('off');
-	setInterval(checker, 10);
-}
-
-function enableMain() {
-	pageMain.style.display = 'block';
-}
-
-function calc() {
-	const [coef, val, res] = countValCoefRes(textfield1);
+function calc(data, select1, select2, textfield1, textfield2) {
+	const [coef, val, res] = countValCoefRes(data, textfield1, select1, select2);
 	if (res === '') {
-		removeVal();
+		removeVal(textfield2);
 		return;
 	}
-	writeVal(val / coef);
+	writeVal(val / coef, textfield2);
 }
 
-function countValCoefRes(field) {
+function countValCoefRes(data, textfield, select1, select2) {
 	const from = select1.selectedText_.textContent,
 		to = select2.selectedText_.textContent,
 		fromObj = data.rates[from],
 		toObj = data.rates[to],
 		coef = fromObj / toObj,
-		res = field.input_.value,
+		res = textfield.input_.value,
 		val = parseFloat(res);
 	return [coef, val, res];
 }
 
-function writeVal(val) {
+function writeVal(val, textfield) {
 	val = (!val) ? 0 : val;
-	textfield2.label_.classList.add('mdc-textfield__label--float-above');
-	textfield2.input_.value = val;
+	textfield.label_.classList.add('mdc-textfield__label--float-above');
+	textfield.input_.value = val;
 }
 
-function removeVal() {
-	textfield2.label_.classList.remove('mdc-textfield__label--float-above');
-	textfield2.input_.value = '';
+function removeVal(textfield) {
+	textfield.label_.classList.remove('mdc-textfield__label--float-above');
+	textfield.input_.value = '';
 }
 
-function showCacheErr(err) {
-  console.error(err);
+function checker(data, select1, select2, textfield1, textfield2, val) {
+	let newVal = textfield1.input_.value;
+	if (newVal != val && data.rates) {
+		calc(data, select1, select2, textfield1, textfield2);
+	}
+	val = newVal;
 }
+
+// SWAP
+
+function swapHandler(data, select1, select2, textfield1, textfield2) {
+	let option1 = select1.selectedText_.textContent,
+		option2 = select2.selectedText_.textContent;
+		select1.selectedText_.textContent = option2;
+		select2.selectedText_.textContent = option1;
+	calc(data, select1, select2, textfield1, textfield2);
+}
+
+// FILE WRITE
 
 function writeRequestFS(fs) {
     fs.root.getFile('cache.json', {create: true}, writeFileEntry, errorCallback);
@@ -181,6 +239,8 @@ function writeFile() {
   }
 }
 
+// FILE READ
+
 function readFile() {
   let type = window.TEMPORARY;
   let size = 5*1024*1024;
@@ -208,29 +268,4 @@ function readFileEntry(fileEntry) {
       }, errorCallback);
 }
 
-function swapHandler() {
-	let option1 = select1.selectedText_.textContent,
-		option2 = select2.selectedText_.textContent;
-		select1.selectedText_.textContent = option2;
-		select2.selectedText_.textContent = option1;
-	calc();
-}
-
-function checker() {
-	let newVal = textfield1.input_.value;
-	if (newVal != val && data.rates) {
-		calc();
-	}
-	val = newVal;
-}
-
-function openWindow() {
-	let className = this.dataset.window;
-	list.forEach(item => item.style.display = 'none');
-	document.querySelector(className).style.display = 'block';
-	innerDrawerChld.forEach(item => item.classList.remove('mdc-temporary-drawer--selected'));
-	this.classList.add('mdc-temporary-drawer--selected');
-	drawer.open = false;
-}
-
-work();
+document.addEventListener('deviceready', preload, false);
